@@ -9,6 +9,7 @@ import telefono from './img/telefono.png';
 import email from './img/email.png'
 import watch from './img/watch.png'
 import fondo from './img/fondo.jpg'
+import futlog from './img/futlog.jpg'
 
 
 export default {
@@ -23,4 +24,5 @@ export default {
     "email": email,
     "watch": watch,
     "fondo": fondo,
+    "futlog": futlog,
 }
