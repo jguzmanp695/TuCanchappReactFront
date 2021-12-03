@@ -8,7 +8,8 @@ const Login = () => {
     const [todo, setTodo] = useState({
         todoName: '',
         todoPassword: '',
-        todoCheckbox: false
+        todoCheckbox: false,
+        todoEmail: '',
     })
 
     const [error, setError] = useState(false)
@@ -53,15 +54,16 @@ const Login = () => {
                             <div class="login-form">
                                 <div class="sign-in-htm">
                                     <div class="group">
-                                        <label for="user" class="label">Usuario</label>
+                                        <label for="user" class="label">Usuario / E-mail</label>
                                         <input
                                             id="user"
                                             type="text"
                                             className="input form-control mb-2"
                                             name="todoName"
-                                            placeholder="E-mail"
+                                            placeholder="Usuario / E-mail"
                                             onChange={handleChange}
-                                            value={todo.todoName} />
+                                            value={todo.todoName}
+                                        />
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Contraseña</label>
@@ -73,7 +75,8 @@ const Login = () => {
                                             name="todoPassword"
                                             placeholder="Password"
                                             onChange={handleChange}
-                                            value={todo.todoPassword} />
+                                            value={todo.todoPassword}
+                                        />
                                     </div>
                                     <div className="form-check">
                                         <input
@@ -82,12 +85,14 @@ const Login = () => {
                                             className="check form-check-input"
                                             name="todoCheckbox"
                                             checked={todo.todoCheckbox}
-                                            onChange={handleChange} />
+                                            onChange={handleChange}
+                                        />
                                         {/* <label for="check"><span className="icon form-check-label"
                                         htmlFor="flexCheckDefault"></span> Mantener mi sesión activa</label> */}
                                         <label
                                             className="form-check-label"
-                                            htmlFor="flexCheckDefault" />
+                                            htmlFor="flexCheckDefault"
+                                        />
                                         Mantener sesión iniciada
                                     </div>
                                     <div class="group">
@@ -100,24 +105,58 @@ const Login = () => {
                                 </div>
                                 <div class="sign-up-htm">
                                     <div class="group">
-                                        <label for="user" class="label">Usuario</label>
-                                        <input id="user" type="text" class="input" />
+                                        <label for="user" class="label">Nombre</label>
+                                        <input
+                                            id="user"
+                                            type="text"
+                                            className="input form-control mb-2"
+                                            placeholder="Nombre"
+                                            name="todoName"
+                                            onChange={handleChange}
+                                            value={todo.todoName}
+                                        />
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Contraseña</label>
-                                        <input id="pass" type="password" class="input" data-type="password" />
+                                        <input
+                                            id="pass"
+                                            type="password"
+                                            className="input form-control mb-2"
+                                            data-type="password"
+                                            name="todoPassword"
+                                            placeholder="Password"
+                                            onChange={handleChange}
+                                            value={todo.todoPassword}
+                                        />
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Repita su contraseña</label>
-                                        <input id="pass" type="password" class="input" data-type="password" />
+                                        <input
+                                            id="pass"
+                                            type="password"
+                                            className="input form-control mb-2"
+                                            data-type="password"
+                                            name="todoPassword"
+                                            placeholder="Password"
+                                            onChange={handleChange}
+                                            value={todo.todoPassword}
+                                        />
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Correo electrónico</label>
-                                        <input id="pass" type="text" class="input" />
+                                        <input
+                                            id="pass"
+                                            className="input form-control mb-2"
+                                            placeholder="E-mail"
+                                            name="todoEmail"
+                                            onChange={handleChange}
+                                            value={todo.todoEmail}
+                                        />
                                     </div>
-                                    <div class="group">
+                                    {/* <div class="group">
                                         <input type="submit" class="button" value="Registrar" />
-                                    </div>
+                                    </div> */}
+                                    <button className="btn btn-primary" type="submit">Registrar</button>
                                     <div class="hr"></div>
                                     <div class="foot-lnk">
                                         <label for="tab-1">¿Eres miembro de Tu Canchapp?</label>
