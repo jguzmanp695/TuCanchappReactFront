@@ -1,8 +1,8 @@
-body{
+.login-Container{
 	margin:0;
 	color:#6a6f8c;
 	background:url(./assets/img/fondo.jpg) right;
-	font:600 12px/14px 'Open Sans',sans-serif;
+	/* font:600 12px/14px 'Open Sans',sans-serif; */
 }
 
 *,:after,:before{
@@ -166,7 +166,7 @@ a{
 	text-align:center;
 }
 
-img, .logo{
+.login-Container img, .logo{
 	border-radius: 25px;
 	display: block;
 	margin: auto;

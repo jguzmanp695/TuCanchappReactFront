@@ -15,7 +15,7 @@ export default function BarraNav() {
                     <Navbar.Brand href="#"></Navbar.Brand>
                     <Navbar.Brand href="#"></Navbar.Brand>
                     <Navbar.Brand href="/registrarPersona">Registrarse</Navbar.Brand>
-                    <Nav.Link href="#action1">Home</Nav.Link>
+                    <Nav.Link href="/home">Home</Nav.Link>
                     <Nav.Link href="/registrar">Registrarse</Nav.Link>
                     <Button href="/login">Login</Button>
                     <Navbar.Toggle aria-controls="offcanvasNavbar" />
