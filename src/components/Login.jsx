@@ -1,49 +1,118 @@
 import React, { Fragment, useState } from 'react';
 import '../style.css';
 import images from '../assets/images';
-import { Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap';
+import Axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Login = () => {
 
-    const [todo, setTodo] = useState({
-        todoName: '',
-        todoPassword: '',
-        todoCheckbox: false,
-        todoEmail: '',
-    })
 
-    const [error, setError] = useState(false)
+    const [correo, setCorreo] = useState('')
+    const [contraseña, setContraseña] = useState('')
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        const { todoName, todoPassword } = todo
-        if (!todoName.trim() || !todoPassword.trim()) {
-            setError(true)
-            return;
+    const login = async (e) => {
+        e.preventDefault();
+        const usuario = { correo, contraseña }
+        const respuesta = await Axios.post('/ciudad/login', usuario);
+        console.log(respuesta)
+        const mensaje = respuesta.data.mensaje
+
+        if (mensaje !== 'Bienvenido') {
+            Swal.fire({
+                icon: 'error',
+                title: mensaje,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
-        setError(false)
+
+        else {
+            const token = respuesta.data.token
+            const nombre = respuesta.data.nombre
+            const idUsuario = respuesta.data.id
+
+            sessionStorage.setItem('token', token)
+            sessionStorage.setItem('nombre', nombre)
+            sessionStorage.setItem('idUsuario', idUsuario)
+
+            Swal.fire({
+                icon: 'success',
+                title: mensaje,
+                showConfirmButton: false,
+                timer: 1500
+            })
+            window.location.href = '/home'
+        }
     }
 
-    const handleChange = e => {
-        console.log(e.target.value);
-        setTodo({
-            ...todo,
-            [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+            email: data.get('email'),
+            password: data.get('password'),
+        });
+    };
 
-        })
-    }
+    // const [todo, setTodo] = useState({
+    //     todoName: '',
+    //     todoPassword: '',
+    //     todoCheckbox: false,
+    //     todoEmail: '',
+    // })
 
-    const PintarError = () => (
-        <div className="alert alert-danger">Campos obligatorios</div>
-    )
+    // const [error, setError] = useState(false)
+
+    // const handleSubmit = e => {
+    //     e.preventDefault()
+    //     const { todoName, todoPassword } = todo
+    //     if (!todoName.trim() || !todoPassword.trim()) {
+    //         setError(true)
+    //         return;
+    //     }
+    //     setError(false)
+    // }
+
+    // const handleChange = e => {
+    //     console.log(e.target.value);
+    //     setTodo({
+    //         ...todo,
+    //         [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+
+    //     })
+    // }
+
+    // const PintarError = () => (
+    //     <div className="alert alert-danger">Campos obligatorios</div>
+    // )
+
+    // const [nombres, setNombre] = useState=()
+    // const [apellidos, setApellidos] = useState=()
+    // const [estadoVacuna, setEstadoVacuna] = useState=([])
+    // const [estadoVacunaSelect, setEstadoVacunaSelect] = useState=([])
+    // const [dosisAplicadas, setDosisAplicadas] = useState=([])
+    // const [dosisAplicadasSelect, setDosisAplicadasSelect] = useState=([])
+
+    // useEffect(() => {
+    //     setEstadoVacuna(['No vacunado', 'Vacunado', 'Primera dosis'])
+    //     setEstadoVacunaSelect('No vacunado')
+        
+    //     setDosisAplicadas(['Ninguna','Primera dosis', 'Segunda dosis', 'Esquema completo'])
+    //     setDosisAplicadasSelect('No vacunado')
+        
+    // }, [])
+
 
     return (
         <Fragment>
             <div className="login-Container">
-                {
+                {/* {
                     error ? <PintarError /> : null
-                }
-                <Form onSubmit={handleSubmit}>
+                } */}
+                {/* <Form onSubmit={handleSubmit}> */}
+                <Form onSubmit={login}>
                     <div class="login-wrap">
                         <div class="login-html">
                             <div class="logo">
@@ -61,8 +130,9 @@ const Login = () => {
                                             className="input form-control mb-2"
                                             name="todoName"
                                             placeholder="Usuario / E-mail"
-                                            onChange={handleChange}
-                                            value={todo.todoName}
+                                            // onChange={handleChange}
+                                            onChange={(e) => setCorreo(e.target.value)}
+                                        // value={todo.todoName}
                                         />
                                     </div>
                                     <div class="group">
@@ -74,8 +144,9 @@ const Login = () => {
                                             data-type="password"
                                             name="todoPassword"
                                             placeholder="Password"
-                                            onChange={handleChange}
-                                            value={todo.todoPassword}
+                                            // onChange={handleChange}
+                                            onChange={(e) => setContraseña(e.target.value)}
+                                        // value={todo.todoPassword}
                                         />
                                     </div>
                                     <div className="form-check">
@@ -84,8 +155,8 @@ const Login = () => {
                                             type="checkbox"
                                             className="check form-check-input"
                                             name="todoCheckbox"
-                                            checked={todo.todoCheckbox}
-                                            onChange={handleChange}
+                                        // checked={todo.todoCheckbox}
+                                        // onChange={handleChange}
                                         />
                                         {/* <label for="check"><span className="icon form-check-label"
                                         htmlFor="flexCheckDefault"></span> Mantener mi sesión activa</label> */}
@@ -112,8 +183,8 @@ const Login = () => {
                                             className="input form-control mb-2"
                                             placeholder="Nombre"
                                             name="todoName"
-                                            onChange={handleChange}
-                                            value={todo.todoName}
+                                        // onChange={handleChange}
+                                        // value={todo.todoName}
                                         />
                                     </div>
                                     <div class="group">
@@ -125,8 +196,8 @@ const Login = () => {
                                             data-type="password"
                                             name="todoPassword"
                                             placeholder="Password"
-                                            onChange={handleChange}
-                                            value={todo.todoPassword}
+                                        // onChange={handleChange}
+                                        // value={todo.todoPassword}
                                         />
                                     </div>
                                     <div class="group">
@@ -138,8 +209,8 @@ const Login = () => {
                                             data-type="password"
                                             name="todoPassword"
                                             placeholder="Password"
-                                            onChange={handleChange}
-                                            value={todo.todoPassword}
+                                        // onChange={handleChange}
+                                        // value={todo.todoPassword}
                                         />
                                     </div>
                                     <div class="group">
@@ -149,8 +220,8 @@ const Login = () => {
                                             className="input form-control mb-2"
                                             placeholder="E-mail"
                                             name="todoEmail"
-                                            onChange={handleChange}
-                                            value={todo.todoEmail}
+                                        // onChange={handleChange}
+                                        // value={todo.todoEmail}
                                         />
                                     </div>
                                     {/* <div class="group">
